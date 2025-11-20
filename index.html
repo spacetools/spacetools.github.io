@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpaceTools: Tool-Augmented Spatial Reasoning via Double Interactive RL</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Roboto+Slab:wght@300;400;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>SpaceTools: Tool-Augmented Spatial Reasoning via Double Interactive RL</h1>
+            <div class="authors">
+                <span class="author">Siyi Chen<sup>1</sup></span>
+                <span class="author">Mikaela Angelina Uy<sup>2</sup></span>
+                <span class="author">Chan Hee Song<sup>3</sup></span>
+                <span class="author">Faisal Ladhak<sup>2</sup></span>
+                <span class="author">Adithyavairavan Murali<sup>2</sup></span>
+                <span class="author">Qing Qu<sup>1</sup></span>
+                <span class="author">Stan Birchfield<sup>2</sup></span>
+                <span class="author">Valts Blukis<sup>&Dagger;,2</sup></span>
+                <span class="author">Jonathan Tremblay<sup>&Dagger;,2</sup></span>
+            </div>
+            <div class="affiliations">
+                <span class="affiliation"><sup>1</sup>University of Michigan</span>
+                <span class="affiliation"><sup>2</sup>NVIDIA</span>
+                <span class="affiliation"><sup>3</sup>Ohio State University</span>
+                <span class="note"><sup>&Dagger;</sup>Project Leads</span>
+            </div>
+            <div class="links">
+                <a href="https://www.dropbox.com/scl/fi/1nwo7nb69a1kz7u8u7i2t/CVPR_VLM_tools-1.pdf?rlkey=ph3reeh7q6zzangsfpwqo14vw&raw=1"
+                    class="btn">Paper</a>
+                <span class="btn disabled">Code (Coming Soon)</span>
+                <span class="btn disabled">Data (Coming Soon)</span>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <img src="assets/teaser.jpg" alt="SpaceTools Teaser" class="teaser-img">
+            <p class="caption"><strong>SpaceTools</strong> uses multiple computer vision tools to solve complex
+                problems. Shown here is a motivating example.</p>
+        </div>
+    </section>
+
+    <section class="abstract">
+        <div class="container">
+            <h2>Abstract</h2>
+            <p>
+                Vision Language Models (VLMs) demonstrate strong qualitative visual understanding, but struggle with
+                metrically precise spatial reasoning required for embodied applications.
+                The agentic paradigm promises that VLMs can use a wide variety of tools that could augment these
+                capabilities, such as depth estimators, segmentation models, and pose estimators.
+                Yet it remains an open challenge how to realize this vision without solely relying on handcrafted
+                prompting strategies or enforcing fixed, predefined tool pipelines that limit VLMs' ability to discover
+                optimal tool-use patterns.
+                Reinforcement Learning could overcome this gap, but has so far been limited to reasoning with a single
+                visual tool due to the large search space in multi-tool reasoning.
+            </p>
+            <p>
+                We introduce <strong>Double Interactive Reinforcement Learning (DIRL)</strong>, a two-phase training
+                framework where VLMs learn to coordinate multiple tools through interactive exploration and feedback. In
+                the teaching phase, we combine demonstrations from a single tool specialist trained via interactive RL
+                with traces from a frontier model using all tools.
+                In the exploration phase, the model further refines multi-tool coordination through continued RL.
+                Our model, <strong>SpaceTools</strong>, with tool-augmented spatial reasoning ability, achieves
+                state-of-the-art performance on spatial understanding benchmarks (RoboSpatial-Home, BLINK, Internal
+                Benchmark) and demonstrates reliable real-world manipulation using a 7-DOF robot as a tool. DIRL
+                provides substantial improvements over the vanilla SFT (+12% on RoboSpatial) and RL (+16% on
+                RoboSpatial) baselines.
+            </p>
+        </div>
+    </section>
+
+    <section class="demo">
+        <div class="container">
+            <h2>Demo</h2>
+            <img src="assets/demo.png" alt="SpaceTools Demo" class="demo-img">
+        </div>
+    </section>
+
+    <section class="results">
+        <div class="container">
+            <h2>Quantitative Results</h2>
+            <div class="table-responsive">
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">Model</th>
+                            <th colspan="3">RoboSpatial</th>
+                            <th>BLINK</th>
+                            <th>RefSpatial</th>
+                            <th colspan="2">CVBench</th>
+                            <th colspan="3">Internal Benchmark</th>
+                        </tr>
+                        <tr>
+                            <th>VQA</th>
+                            <th>Vacant</th>
+                            <th>Overall</th>
+                            <th>Depth</th>
+                            <th></th>
+                            <th>2D Rel.</th>
+                            <th>3D Depth</th>
+                            <th>Pose</th>
+                            <th>Grasp-MACE</th>
+                            <th>Grasp-SR</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="group-header">
+                            <td colspan="11">Proprietary Models</td>
+                        </tr>
+                        <tr>
+                            <td>Claude Sonnet 4.5</td>
+                            <td>75.44</td>
+                            <td>23.77</td>
+                            <td>57.43</td>
+                            <td>78.23</td>
+                            <td>7.49</td>
+                            <td>89.85</td>
+                            <td>78.50</td>
+                            <td>1.67</td>
+                            <td>40.12</td>
+                            <td class="underline">48.33</td>
+                        </tr>
+                        <tr>
+                            <td>GPT-4o</td>
+                            <td>61.61</td>
+                            <td>25.10</td>
+                            <td>48.88</td>
+                            <td>63.71</td>
+                            <td>8.48</td>
+                            <td>88.77</td>
+                            <td>75.50</td>
+                            <td>0.00</td>
+                            <td>5.50</td>
+                            <td>1.67</td>
+                        </tr>
+                        <tr>
+                            <td>GPT-5</td>
+                            <td>76.50</td>
+                            <td>22.17</td>
+                            <td>58.39</td>
+                            <td>66.13</td>
+                            <td>23.10</td>
+                            <td class="underline">95.54</td>
+                            <td>91.33</td>
+                            <td>9.03</td>
+                            <td class="underline">39.59</td>
+                            <td>41.67</td>
+                        </tr>
+                        <tr>
+                            <td>Gemini-ER 1.5</td>
+                            <td class="underline">79.30</td>
+                            <td>31.10</td>
+                            <td class="underline">62.50</td>
+                            <td>69.23</td>
+                            <td>41.72</td>
+                            <td class="underline">95.54</td>
+                            <td>90.50</td>
+                            <td>0.00</td>
+                            <td>30.06</td>
+                            <td>23.33</td>
+                        </tr>
+
+                        <tr class="group-header">
+                            <td colspan="11">General Open-Source Models</td>
+                        </tr>
+                        <tr>
+                            <td>LLaVA-NeXT-8B</td>
+                            <td>69.31</td>
+                            <td>0.00</td>
+                            <td>45.15</td>
+                            <td>53.23</td>
+                            <td>0.78</td>
+                            <td>72.15</td>
+                            <td>73.67</td>
+                            <td>0.00</td>
+                            <td>5.04</td>
+                            <td>1.67</td>
+                        </tr>
+                        <tr>
+                            <td>Qwen2.5-VL-32B</td>
+                            <td>61.84</td>
+                            <td>3.28</td>
+                            <td>41.43</td>
+                            <td>70.16</td>
+                            <td>7.28</td>
+                            <td>90.46</td>
+                            <td>86.67</td>
+                            <td>0.00</td>
+                            <td>29.86</td>
+                            <td>23.33</td>
+                        </tr>
+                        <tr>
+                            <td>Qwen2.5-VL-3B</td>
+                            <td>53.07</td>
+                            <td>0.00</td>
+                            <td>35.71</td>
+                            <td>70.98</td>
+                            <td>0.00</td>
+                            <td>70.62</td>
+                            <td>65.33</td>
+                            <td>0.00</td>
+                            <td>6.06</td>
+                            <td>0.00</td>
+                        </tr>
+
+                        <tr class="group-header">
+                            <td colspan="11">Spatial VLMs</td>
+                        </tr>
+                        <tr>
+                            <td>SpaceLLaVA-13B</td>
+                            <td>61.00</td>
+                            <td>2.50</td>
+                            <td>40.61</td>
+                            <td>51.61</td>
+                            <td>3.25</td>
+                            <td>61.08</td>
+                            <td>62.83</td>
+                            <td>0.00</td>
+                            <td>0.00</td>
+                            <td>0.00</td>
+                        </tr>
+                        <tr>
+                            <td>RoboPoint-13B</td>
+                            <td>70.18</td>
+                            <td>19.70</td>
+                            <td>52.58</td>
+                            <td>54.84</td>
+                            <td>15.59</td>
+                            <td>74.00</td>
+                            <td>76.50</td>
+                            <td>0.00</td>
+                            <td>0.00</td>
+                            <td>0.00</td>
+                        </tr>
+                        <tr>
+                            <td>Molmo-7B</td>
+                            <td>39.92</td>
+                            <td>0.82</td>
+                            <td>26.29</td>
+                            <td>54.03</td>
+                            <td>0.00</td>
+                            <td>72.15</td>
+                            <td>73.33</td>
+                            <td>0.00</td>
+                            <td>36.74</td>
+                            <td>18.33</td>
+                        </tr>
+                        <tr>
+                            <td>RoboBrain2.0-7B</td>
+                            <td>59.64</td>
+                            <td>44.35</td>
+                            <td>54.31</td>
+                            <td>84.68</td>
+                            <td>32.50</td>
+                            <td>87.23</td>
+                            <td>90.00</td>
+                            <td>0.00</td>
+                            <td>0.00</td>
+                            <td>0.00</td>
+                        </tr>
+                        <tr>
+                            <td>RoboRefer-8B-SFT</td>
+                            <td>58.33</td>
+                            <td class="bold">61.48</td>
+                            <td>59.43</td>
+                            <td class="underline">88.71</td>
+                            <td class="underline">48.37</td>
+                            <td class="bold">96.31</td>
+                            <td class="bold">96.50</td>
+                            <td>0.00</td>
+                            <td>0.00</td>
+                            <td>0.00</td>
+                        </tr>
+
+                        <tr class="group-header">
+                            <td colspan="11">Tool-free Fine-tuning</td>
+                        </tr>
+                        <tr>
+                            <td>Qwen2.5-VL-3B-Tool-free SFT</td>
+                            <td>66.66</td>
+                            <td>41.80</td>
+                            <td>58.00</td>
+                            <td>80.65</td>
+                            <td>20.22</td>
+                            <td>91.54</td>
+                            <td>83.33</td>
+                            <td>2.44</td>
+                            <td>39.47</td>
+                            <td>35.00</td>
+                        </tr>
+                        <tr>
+                            <td>Qwen2.5-VL-3B-Tool-free RL</td>
+                            <td>67.54</td>
+                            <td>28.69</td>
+                            <td>54.00</td>
+                            <td>80.65</td>
+                            <td>23.10</td>
+                            <td>87.38</td>
+                            <td>70.83</td>
+                            <td class="underline">12.00</td>
+                            <td>38.79</td>
+                            <td>36.67</td>
+                        </tr>
+
+                        <tr class="highlight-row">
+                            <td class="bold">SpaceTools-3B (Ours)</td>
+                            <td class="bold">79.38</td>
+                            <td class="underline">52.46</td>
+                            <td class="bold">70.00</td>
+                            <td class="bold">90.32</td>
+                            <td class="bold">53.07</td>
+                            <td>94.92</td>
+                            <td class="underline">96.00</td>
+                            <td class="bold">34.37</td>
+                            <td class="bold">43.06</td>
+                            <td class="bold">50.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="caption">Performance comparison across spatial reasoning benchmarks. All values are normalized
+                accuracy (%). <strong>Bold</strong> indicates the best performance within each column, and
+                <u>underline</u> denotes the second-best result.
+            </p>
+        </div>
+    </section>
+
+    <section class="robot-execution">
+        <div class="container">
+            <h2>Real-World Robot Execution</h2>
+            <img src="assets/robot.png" alt="SpaceTools Robot Execution" class="robot-img">
+            <p class="caption"><strong>SpaceTools</strong> demonstrates reliable real-world manipulation using a 7-DOF
+                robot as a tool.</p>
+        </div>
+    </section>
+
+    <section class="citation">
+        <div class="container">
+            <h2>Citation</h2>
+            <pre><code>@misc{chen2026spacetools,
+  title={SpaceTools: Tool-Augmented Spatial Reasoning via Double Interactive RL},
+  author={Chen, Siyi and Uy, Mikaela Angelina and Song, Chan Hee and Ladhak, Faisal and Murali, Adithyavairavan and Qu, Qing and Birchfield, Stan and Blukis, Valts and Tremblay, Jonathan},
+  howpublished={\url{https://jtremblay.github.io/spacetools}},
+  year={2026}
+}</code></pre>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 SpaceTools Project</p>
+        </div>
+    </footer>
+</body>
+
+</html>
