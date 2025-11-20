@@ -105,6 +105,15 @@ h2 {
     background-color: #bdc3c7;
 }
 
+.tldr {
+    margin-top: 30px;
+    font-size: 1.05rem;
+    color: #444;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .hero {
     text-align: center;
     margin-bottom: 40px;
@@ -168,6 +177,15 @@ h2 {
     background-color: var(--light-gray);
     font-weight: 600;
     color: var(--primary-color);
+}
+
+.results-table th a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.results-table th a:hover {
+    text-decoration: underline;
 }
 
 .results-table .group-header td {
