@@ -105,13 +105,34 @@ h2 {
     background-color: #bdc3c7;
 }
 
+.demo-video,
 .tldr {
     margin-top: 30px;
-    font-size: 1.05rem;
-    color: #444;
     max-width: 800px;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
+}
+
+.demo-video {
+    text-align: center;
+}
+
+.tldr {
+    font-size: 1.05rem;
+    color: #444;
+    background-color: #e8f0f5;
+    padding: 25px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-left: 4px solid #5a9fd4;
+}
+
+.demo-video-player {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .hero {
@@ -119,19 +140,31 @@ h2 {
     margin-bottom: 40px;
 }
 
+.hero .container {
+    text-align: center;
+}
+
 .teaser-img {
-    max-width: 100%;
+    max-width: 90%;
+    width: 100%;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: block;
+    margin: 0 auto;
 }
 
 .caption {
     font-size: 0.95rem;
     color: #555;
     margin-top: 15px;
-    max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
+    display: block;
+    max-width: 800px;
+}
+
+.abstract h2 {
     text-align: center;
 }
 
@@ -141,16 +174,160 @@ h2 {
     margin-bottom: 15px;
 }
 
+.abstract > .container:first-of-type {
+    text-align: left;
+}
+
+.abstract > .container:last-of-type {
+    text-align: center;
+}
+
+.abstract > .container:last-of-type {
+    text-align: center;
+}
+
+.abstract > .container:last-of-type .caption {
+    text-align: center !important;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
 .demo,
-.robot-execution {
+.robot-execution,
+.reasoning_visualization {
     text-align: center;
 }
 
 .demo-img,
+.reasoning-visualization-img {
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.robot-execution .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.robot-images {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.robot-demo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .robot-img {
     max-width: 100%;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+.robot-caption {
+    font-size: 0.9rem;
+    color: #666;
+    text-align: center;
+    margin: 0;
+    font-style: italic;
+}
+
+.results h2 {
+    text-align: center;
+}
+
+.approach {
+    text-align: center;
+}
+
+.approach h2 {
+    text-align: center;
+}
+
+.approach-subsection {
+    margin-bottom: 50px;
+    text-align: left;
+}
+
+.approach-highlight-box {
+    background-color: var(--light-gray);
+    padding: 25px 30px;
+    margin: 40px auto;
+    border-radius: 8px;
+    max-width: 1100px;
+    text-align: center;
+}
+
+.approach-highlight-box p {
+    font-size: 1.05rem;
+    color: var(--text-color);
+    margin: 0;
+    text-align: center;
+    font-style: italic;
+}
+
+.approach-subsection h3 {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+    text-align: left;
+}
+
+.approach-subsection p {
+    font-size: 1.05rem;
+    text-align: justify;
+    margin-bottom: 15px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.approach-steps {
+    max-width: 800px;
+    margin: 20px auto;
+    text-align: left;
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+.approach-steps li {
+    margin-bottom: 15px;
+}
+
+.approach-img {
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+}
+
+.toolshed-images {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: stretch;
+    margin: 20px 0;
+}
+
+.toolshed-images .approach-img {
+    flex: 0 1 calc(50% - 10px);
+    min-width: 300px;
+    margin: 0;
+    height: 400px;
+    object-fit: contain;
+    object-position: center;
 }
 
 /* Table Styles */
@@ -207,6 +384,10 @@ h2 {
     text-decoration: underline;
 }
 
+.citation h2 {
+    text-align: center;
+}
+
 .citation pre {
     background-color: var(--light-gray);
     padding: 20px;
@@ -246,5 +427,20 @@ footer {
     .results-table th,
     .results-table td {
         padding: 6px 8px;
+    }
+
+    .robot-images {
+        gap: 30px;
+    }
+
+    .toolshed-images {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .toolshed-images .approach-img {
+        flex: 1 1 100%;
+        min-width: unset;
+        height: auto;
     }
 }

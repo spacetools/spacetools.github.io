@@ -18,7 +18,7 @@
         <div class="container">
             <h1>SpaceTools: Tool-Augmented Spatial Reasoning via Double Interactive RL</h1>
             <div class="authors">
-                <span class="author">Siyi Chen<sup>1</sup></span>
+                <span class="author">Siyi Chen<sup>1,2,*</sup></span>
                 <span class="author">Mikaela Angelina Uy<sup>2</sup></span>
                 <span class="author">Chan Hee Song<sup>3</sup></span>
                 <span class="author">Faisal Ladhak<sup>2</sup></span>
@@ -33,29 +33,39 @@
                 <span class="affiliation"><sup>2</sup>NVIDIA</span>
                 <span class="affiliation"><sup>3</sup>Ohio State University</span>
                 <span class="note"><sup>&Dagger;</sup>Project Leads</span>
+                <span class="note"><sup>*</sup>Work done during an internship at NVIDIA</span>
             </div>
             <div class="links">
                 <a href="https://www.dropbox.com/scl/fi/1nwo7nb69a1kz7u8u7i2t/CVPR_VLM_tools-1.pdf?rlkey=ph3reeh7q6zzangsfpwqo14vw&raw=1"
                     class="btn">Paper</a>
                 <span class="btn disabled">Code (Coming Soon)</span>
                 <span class="btn disabled">Data (Coming Soon)</span>
+                <span class="btn disabled">Model (Coming Soon)</span>
             </div>
             <div class="tldr">
-                <p><strong>TL;DR:</strong> We propose <strong>SpaceTools</strong>, a framework that empowers VLMs with
-                    tool-using capabilities for spatial reasoning.
-                    We achieve state-of-the-art performance on spatial benchmarks and enabling precise real-world robot
-                    manipulation.</p>
+                <p><strong>TL;DR:</strong> <strong>SpaceTools</strong> empowers VLMs with 
+                    vision and robotic tools for spatial reasoning 
+                    via <strong>Double Interactive Reinforcement Learning (DIRL)</strong>, 
+                    enabled by our <strong>Toolshed</strong> infrastructure. 
+                    Achieves state-of-the-art performance on spatial reasoningbenchmarks and
+                    enables precise real-world robot manipulation.</p>
+            </div>
+            <div class="demo-video">
+                <video controls class="demo-video-player">
+                    <source src="assets/demo.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
             </div>
         </div>
     </header>
 
-    <section class="hero">
+    <!-- <section class="hero">
         <div class="container">
             <img src="assets/teaser.jpg" alt="SpaceTools Teaser" class="teaser-img">
             <p class="caption"><strong>SpaceTools</strong> uses multiple computer vision tools to solve complex
                 problems.</p>
         </div>
-    </section>
+    </section> -->
 
     <section class="abstract">
         <div class="container">
@@ -84,12 +94,25 @@
                 RoboSpatial) baselines.
             </p>
         </div>
+        <div class="container">
+            <img src="assets/teaser.jpg" alt="SpaceTools Teaser" class="teaser-img">
+            <p class="caption"><strong>SpaceTools</strong> uses multiple computer vision tools to solve complex
+                problems.</p>
+        </div>
     </section>
 
-    <section class="demo">
+    <!-- <section class="demo">
         <div class="container">
             <h2>Demo</h2>
             <img src="assets/demo.png" alt="SpaceTools Demo" class="demo-img">
+        </div>
+    </section> -->
+
+    <section class="reasoning_visualization">
+        <div class="container">
+            <h2>Spatial Reasoning Visualization</h2>
+            <img src="assets/traces.png" alt="SpaceTools Reasoning Visualization" class="reasoning-visualization-img">
+            <p class="caption">Spatial reasoning visualization of <strong>SpaceTools</strong>. It performs diverse spatial reasoning tasks including relative depth, pose, grasp, spatial compatibility, and spatial relationship by interleaving reasoning (gray) and vision tool calls (green) before producing the final answer.</p>
         </div>
     </section>
 
@@ -346,9 +369,65 @@
     <section class="robot-execution">
         <div class="container">
             <h2>Real-World Robot Execution</h2>
-            <img src="assets/robot.png" alt="SpaceTools Robot Execution" class="robot-img">
+            <div class="robot-images">
+                <div class="robot-demo">
+                    <img src="assets/robot.png" alt="SpaceTools Robot Execution" class="robot-img">
+                    <p class="robot-caption">Demo 1</p>
+                </div>
+                <div class="robot-demo">
+                    <img src="assets/robot2.png" alt="SpaceTools Robot Execution" class="robot-img">
+                    <p class="robot-caption">Demo 2</p>
+                </div>
+                <div class="robot-demo">
+                    <img src="assets/robot3.png" alt="SpaceTools Robot Execution" class="robot-img">
+                    <p class="robot-caption">Demo 3</p>
+                </div>
+            </div>
             <p class="caption"><strong>SpaceTools</strong> demonstrates reliable real-world manipulation using a 7-DOF
-                robot as a tool.</p>
+                robot as a tool. The model completes multi-step tasks via alternating reasoning (gray), vision tools (green) for perception, and robot tools (blue) for action.</p>
+        </div>
+    </section>
+
+    <section class="approach">
+        <div class="container">
+            <h2>Approach</h2>
+            
+            <div class="approach-subsection">
+                <h3>The Key Steps of DIRL</h3>
+                <p>
+                    <strong>Double Interactive Reinforcement Learning (DIRL)</strong> is a two-phase training framework 
+                    designed to teach VLMs reliable and scalable multi-tool coordination. It progresses through:
+                </p>
+                <ul class="approach-steps">
+                    <li>
+                        <strong>Teaching Phase:</strong> We construct a curated training set by combining demonstrations 
+                        from (a) a single-tool IRL-trained specialist with (b) high-quality multi-tool traces generated by a frontier 
+                        model. This phase gives the model strong initialization and clear examples of grounded tool usage.
+                    </li>
+                    <li>
+                        <strong>Exploration Phase:</strong> Starting from this initialization, the model undergoes 
+                        full multi-tool interactive RL. Through exploration and feedback, it learns to sequence tools 
+                        effectively and refine its coordination strategies.
+                    </li>
+                </ul>
+            </div>
+
+            <div class="approach-highlight-box">
+                <p>The interactive RL, the collection of real tool-use traces with frontier models, and the inference-time tool deployment, are made possible 
+                    by our scalable <strong>Toolshed</strong> infrastructure.</p>
+            </div>
+
+            <div class="approach-subsection">
+                <h3>Toolshed and Interactive RL Training Visualization</h3>
+                <div class="toolshed-images">
+                    <img src="assets/tools.png" alt="Toolshed Infrastructure" class="approach-img">
+                    <img src="assets/rl_training_onecol.png" alt="Interactive RL Training" class="approach-img">
+                </div>
+                <p class="caption"><strong>Left:</strong> Toolshed is an infrastructure for deploying heavy tools during training 
+                    and inference. It enables efficient tool execution and management for the DIRL framework.<br>
+                    <strong>Right:</strong> Visualization of the interactive reinforcement learning training process, showing how 
+                    the model learns to coordinate multiple tools through exploration and feedback.</p>
+            </div>
         </div>
     </section>
 
