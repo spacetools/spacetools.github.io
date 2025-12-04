@@ -126,6 +126,7 @@ h2 {
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     border-left: 4px solid #5a9fd4;
+    box-sizing: border-box; /* include padding within width for mobile */
 }
 
 .demo-video-player {
@@ -518,5 +519,10 @@ footer {
         flex: 1 1 calc(50% - 10px);
         min-width: 0;
         height: auto;
+    }
+
+    .tldr {
+        padding: 20px 15px; /* reduce padding on small screens */
+        font-size: 1rem;
     }
 }
