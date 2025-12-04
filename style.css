@@ -187,6 +187,7 @@ h2 {
 }
 
 .abstract > .container:last-of-type .caption {
+    font-size: 0.95rem;
     text-align: center !important;
     margin-left: auto;
     margin-right: auto;
@@ -293,6 +294,11 @@ h2 {
     margin-right: auto;
 }
 
+.approach-subsection .caption {
+    font-size: 0.95rem;
+    text-align: center;
+}
+
 .approach-steps {
     max-width: 800px;
     margin: 20px auto;
@@ -388,13 +394,82 @@ h2 {
     text-align: center;
 }
 
+.citation-block {
+    max-width: 900px;
+    margin: 30px auto;
+}
+
 .citation pre {
-    background-color: var(--light-gray);
-    padding: 20px;
+    background-color: #f8f9fa;
+    padding: 25px 30px;
     border-radius: 8px;
     overflow-x: auto;
     font-family: 'Courier New', Courier, monospace;
     font-size: 0.9rem;
+    line-height: 1.8;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    margin: 0;
+}
+
+.citation code {
+    font-family: 'Courier New', Courier, monospace;
+    white-space: pre;
+    display: block;
+}
+
+/* Citation syntax highlighting */
+.citation .cite-type {
+    color: #6f42c1;
+    font-weight: 600;
+}
+
+.citation .cite-key {
+    color: #005cc5;
+}
+
+.citation .cite-field-wrap {
+    display: inline-flex;
+    width: 14ch;
+    align-items: baseline;
+}
+
+.citation .cite-field {
+    color: #d73a49;
+    font-weight: 500;
+    flex: 0 0 auto;
+}
+
+.citation .cite-operator {
+    color: #6a737d;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.citation .cite-brace {
+    color: #24292e;
+}
+
+.citation .cite-punct {
+    color: #6a737d;
+}
+
+.citation .cite-title {
+    color: #032f62;
+    font-weight: 500;
+}
+
+.citation .cite-author {
+    color: #22863a;
+}
+
+.citation .cite-value {
+    color: #005cc5;
+}
+
+.citation .cite-url {
+    color: #0366d6;
+    text-decoration: underline;
 }
 
 footer {

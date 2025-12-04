@@ -5,6 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SpaceTools: Tool-Augmented Spatial Reasoning via Double Interactive RL</title>
+    
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="SpaceTools: Tool-Augmented Spatial Reasoning via Double Interactive RL">
+    <meta name="description" content="SpaceTools empowers VLMs with vision and robotic tools for spatial reasoning via Double Interactive Reinforcement Learning (DIRL), enabled by our Toolshed infrastructure. Achieves state-of-the-art performance on spatial reasoning benchmarks and enables precise real-world robot manipulation.">
+    <meta name="keywords" content="vision language models, spatial reasoning, reinforcement learning, robotics, computer vision, tool-augmented AI">
+    <meta name="author" content="Siyi Chen, Mikaela Angelina Uy, Chan Hee Song, Faisal Ladhak, Adithyavairavan Murali, Qing Qu, Stan Birchfield, Valts Blukis, Jonathan Tremblay">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://spacetools.github.io/">
+    <meta property="og:title" content="SpaceTools: Tool-Augmented Spatial Reasoning via Double Interactive RL">
+    <meta property="og:description" content="SpaceTools empowers VLMs with vision and robotic tools for spatial reasoning via Double Interactive Reinforcement Learning (DIRL). Achieves state-of-the-art performance on spatial reasoning benchmarks and enables precise real-world robot manipulation.">
+    <meta property="og:image" content="https://spacetools.github.io/assets/teaser.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="SpaceTools">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://spacetools.github.io/">
+    <meta name="twitter:title" content="SpaceTools: Tool-Augmented Spatial Reasoning via Double Interactive RL">
+    <meta name="twitter:description" content="SpaceTools empowers VLMs with vision and robotic tools for spatial reasoning via Double Interactive Reinforcement Learning (DIRL). Achieves state-of-the-art performance on spatial reasoning benchmarks.">
+    <meta name="twitter:image" content="https://spacetools.github.io/assets/teaser.jpg">
+    
+    <!-- Additional Meta Tags -->
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://spacetools.github.io/">
+    
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,8 +64,10 @@
                 <span class="note"><sup>*</sup>Work done during an internship at NVIDIA</span>
             </div>
             <div class="links">
-                <a href="https://www.dropbox.com/scl/fi/1nwo7nb69a1kz7u8u7i2t/CVPR_VLM_tools-1.pdf?rlkey=ph3reeh7q6zzangsfpwqo14vw&raw=1"
+                <a href="https://arxiv.org/pdf/2512.04069"
                     class="btn">Paper</a>
+                <a href="https://arxiv.org/abs/2512.04069"
+                    class="btn">arXiv</a>
                 <span class="btn disabled">Code (Coming Soon)</span>
                 <span class="btn disabled">Data (Coming Soon)</span>
                 <span class="btn disabled">Model (Coming Soon)</span>
@@ -96,7 +126,7 @@
         </div>
         <div class="container">
             <img src="assets/teaser.jpg" alt="SpaceTools Teaser" class="teaser-img">
-            <p class="caption"><strong>SpaceTools</strong> uses multiple computer vision tools to solve complex
+            <p class="caption"><strong>SpaceTools</strong> learns to use multiple computer vision tools to solve complex
                 problems.</p>
         </div>
     </section>
@@ -425,21 +455,51 @@
                 </div>
                 <p class="caption"><strong>Left:</strong> Toolshed is an infrastructure for deploying heavy tools during training 
                     and inference. It enables efficient tool execution and management for the DIRL framework.<br>
-                    <strong>Right:</strong> Visualization of the interactive reinforcement learning training process, showing how 
+                    <strong>Right:</strong> Visualization of the interactive reinforcement learning training process (via GRPO), showing how 
                     the model learns to coordinate multiple tools through exploration and feedback.</p>
             </div>
+
+            <div class="approach-subsection">
+                <h3>Core Features of Toolshed</h3>
+                <p>
+                    <strong>Toolshed</strong> is a scalable, distributed, asynchronous framework for deploying compute-heavy vision and robotic tools alongside VLM training and inference. 
+                    It mitigates bottlenecks through resource and environment isolation, decoupled tool execution, and asynchronous parallel workers that scale 
+                    independently from model compute. Toolshed hosts modular vision tools (<em>e.g.</em>, segmentation, pointing, depth, 3D box fitting, grasp prediction) 
+                    and robotic tools (<em>e.g.</em>, image capture, grasp execution, placement). It has the following core features:
+                </p>
+                <!-- <p>
+                    Tool-augmented spatial reasoning requires multi-turn communication with heavy CV modules that often dominate runtime. 
+                    Naïvely, a single blocking tool call can stall an entire batched rollout. Toolshed avoids this by keeping tools continuously 
+                    available and serving requests in parallel as a distributed, asynchronous toolkit.
+                </p> -->
+            
+                <ul class="approach-steps">
+                    <li><strong>Decoupled execution.</strong> Tool calls run outside the policy loop, preventing blocking.</li>
+                    <li><strong>Asynchronous workers.</strong> Parallel tool instances handle requests independently for high throughput.</li>
+                    <li><strong>Resource isolation.</strong> Each tool receives dedicated GPU/CPU resources.</li>
+                    <li><strong>Environment isolation.</strong> Tools run in separate Python environments to avoid dependency conflicts.</li>
+                    <li><strong>Elastic scaling.</strong> Additional workers can be spawned to handle usage spikes.</li>
+                    <li><strong>Multimodal data passing.</strong> Efficient transfer of text, images, and structured outputs (<em>e.g.</em>, point clouds) across devices/nodes.</li>
+                </ul>
+            </div>
+            
         </div>
     </section>
 
     <section class="citation">
         <div class="container">
             <h2>Citation</h2>
-            <pre><code>@misc{chen2026spacetools,
-  title={SpaceTools: Tool-Augmented Spatial Reasoning via Double Interactive RL},
-  author={Chen, Siyi and Uy, Mikaela Angelina and Song, Chan Hee and Ladhak, Faisal and Murali, Adithyavairavan and Qu, Qing and Birchfield, Stan and Blukis, Valts and Tremblay, Jonathan},
-  howpublished={\url{https://jtremblay.github.io/spacetools}},
-  year={2026}
-}</code></pre>
+            <div class="citation-block">
+                <pre><code><span class="cite-type">@misc</span><span class="cite-brace">{</span><span class="cite-key">chen2025spacetoolstoolaugmentedspatialreasoning</span><span class="cite-brace">,</span>
+    <span class="cite-field-wrap"><span class="cite-field">title</span><span class="cite-operator">=</span></span><span class="cite-brace">{</span><span class="cite-title">SpaceTools: Tool-Augmented Spatial Reasoning via Double Interactive RL</span><span class="cite-brace">}</span><span class="cite-punct">,</span> 
+    <span class="cite-field-wrap"><span class="cite-field">author</span><span class="cite-operator">=</span></span><span class="cite-brace">{</span><span class="cite-author">Siyi Chen and Mikaela Angelina Uy and Chan Hee Song and Faisal Ladhak and Adithyavairavan Murali and Qing Qu and Stan Birchfield and Valts Blukis and Jonathan Tremblay</span><span class="cite-brace">}</span><span class="cite-punct">,</span>
+    <span class="cite-field-wrap"><span class="cite-field">year</span><span class="cite-operator">=</span></span><span class="cite-brace">{</span><span class="cite-value">2025</span><span class="cite-brace">}</span><span class="cite-punct">,</span>
+    <span class="cite-field-wrap"><span class="cite-field">eprint</span><span class="cite-operator">=</span></span><span class="cite-brace">{</span><span class="cite-value">2512.04069</span><span class="cite-brace">}</span><span class="cite-punct">,</span>
+    <span class="cite-field-wrap"><span class="cite-field">archivePrefix</span><span class="cite-operator">=</span></span><span class="cite-brace">{</span><span class="cite-value">arXiv</span><span class="cite-brace">}</span><span class="cite-punct">,</span>
+    <span class="cite-field-wrap"><span class="cite-field">primaryClass</span><span class="cite-operator">=</span></span><span class="cite-brace">{</span><span class="cite-value">cs.CV</span><span class="cite-brace">}</span><span class="cite-punct">,</span>
+    <span class="cite-field-wrap"><span class="cite-field">url</span><span class="cite-operator">=</span></span><span class="cite-brace">{</span><span class="cite-url">https://arxiv.org/abs/2512.04069</span><span class="cite-brace">}</span>
+<span class="cite-brace">}</span></code></pre>
+            </div>
         </div>
     </section>
 
