@@ -1,0 +1,6 @@
+# Poster & video build materials (not part of the published website)
+poster/
+video/
+
+# OS files
+.DS_Store

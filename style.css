@@ -1,12 +1,14 @@
 :root {
-    --primary-color: #2c3e50;
-    --accent-color: #3498db;
-    --text-color: #333;
-    --bg-color: #fdfdfd;
-    --light-gray: #f4f4f4;
-    --border-color: #e0e0e0;
-    --font-main: 'Inter', sans-serif;
-    --font-heading: 'Roboto Slab', serif;
+    --primary-color: #1a1a1a;
+    --accent-color: #76b900; /* NVIDIA green */
+    --accent-dark: #5e9400;
+    --accent-soft: #eef6e0;
+    --text-color: #2b2b2b;
+    --bg-color: #ffffff;
+    --light-gray: #f5f6f4;
+    --border-color: #e2e4e0;
+    --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-heading: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 body {
@@ -26,31 +28,57 @@ body {
 
 header {
     text-align: center;
-    padding: 60px 0 40px;
+    padding: 64px 0 44px;
+    border-top: 6px solid var(--accent-color);
+    background: linear-gradient(180deg, var(--accent-soft) 0%, var(--bg-color) 70%);
 }
 
 h1 {
     font-family: var(--font-heading);
     font-size: 2.5rem;
-    margin-bottom: 10px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 12px;
     color: var(--primary-color);
 }
 
 .venue {
-    font-size: 1.25rem;
-    color: var(--primary-color);
+    font-size: 1.2rem;
+    color: var(--accent-dark);
     margin-bottom: 20px;
     font-weight: 700;
+    letter-spacing: 0.01em;
 }
 
 h2 {
     font-family: var(--font-heading);
     font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
     margin-top: 40px;
-    margin-bottom: 20px;
-    color: var(--primary-color);
-    border-bottom: 2px solid var(--light-gray);
-    padding-bottom: 10px;
+    margin-bottom: 24px;
+    padding-bottom: 14px;
+    color: var(--accent-dark);
+}
+
+h2::after {
+    content: '';
+    display: block;
+    width: 64px;
+    height: 3px;
+    background-color: var(--accent-color);
+    margin-top: 14px;
+}
+
+.abstract h2::after,
+.results h2::after,
+.approach h2::after,
+.citation h2::after,
+.reasoning_visualization h2::after,
+.robot-execution h2::after {
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .authors {
@@ -61,8 +89,8 @@ h2 {
 .author {
     display: inline-block;
     margin: 0 10px;
-    color: var(--accent-color);
-    font-weight: 500;
+    color: var(--accent-dark);
+    font-weight: 600;
 }
 
 .affiliations {
@@ -89,27 +117,31 @@ h2 {
 
 .btn {
     display: inline-block;
-    background-color: var(--primary-color);
-    color: white;
-    padding: 10px 20px;
-    margin: 0 10px;
-    border-radius: 25px;
+    background-color: var(--accent-color);
+    color: #ffffff;
+    padding: 11px 26px;
+    margin: 6px 8px;
+    border-radius: 4px;
     text-decoration: none;
-    font-weight: 600;
-    transition: background-color 0.3s ease;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .btn:hover {
-    background-color: var(--accent-color);
+    background-color: var(--accent-dark);
+    transform: translateY(-1px);
 }
 
 .btn.disabled {
-    background-color: #bdc3c7;
+    background-color: #c8ccc4;
     cursor: default;
 }
 
 .btn.disabled:hover {
-    background-color: #bdc3c7;
+    background-color: #c8ccc4;
+    transform: none;
 }
 
 .demo-video,
@@ -127,12 +159,12 @@ h2 {
 
 .tldr {
     font-size: 1.05rem;
-    color: #444;
-    background-color: #e8f0f5;
+    color: #3a3a3a;
+    background-color: var(--accent-soft);
     padding: 25px 30px;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    border-left: 4px solid #5a9fd4;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-left: 4px solid var(--accent-color);
     box-sizing: border-box; /* include padding within width for mobile */
 }
 
@@ -170,6 +202,33 @@ h2 {
     text-align: center;
     display: block;
     max-width: 800px;
+}
+
+.caption strong {
+    color: var(--accent-dark);
+}
+
+/* Emphasize key terms (SpaceTools, DIRL, Toolshed, ...) in NVIDIA green */
+.abstract p strong,
+.approach-subsection p strong,
+.approach-steps li strong,
+.tldr strong {
+    color: var(--accent-dark);
+}
+
+/* In-text links */
+.abstract a,
+.approach a,
+.results-table td a {
+    color: var(--accent-dark);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.abstract a:hover,
+.approach a:hover,
+.results-table td a:hover {
+    text-decoration: underline;
 }
 
 .abstract h2 {
@@ -268,10 +327,11 @@ h2 {
 }
 
 .approach-highlight-box {
-    background-color: var(--light-gray);
+    background-color: var(--accent-soft);
     padding: 25px 30px;
     margin: 40px auto;
     border-radius: 8px;
+    border-left: 4px solid var(--accent-color);
     max-width: 1100px;
     text-align: center;
 }
@@ -287,10 +347,13 @@ h2 {
 .approach-subsection h3 {
     font-family: var(--font-heading);
     font-size: 1.4rem;
+    font-weight: 700;
     margin-top: 30px;
     margin-bottom: 15px;
-    color: var(--primary-color);
+    color: var(--accent-dark);
     text-align: left;
+    border-left: 4px solid var(--accent-color);
+    padding-left: 12px;
 }
 
 .approach-subsection p {
@@ -365,13 +428,13 @@ h2 {
 }
 
 .results-table th {
-    background-color: var(--light-gray);
+    background-color: var(--primary-color);
     font-weight: 600;
-    color: var(--primary-color);
+    color: #ffffff;
 }
 
 .results-table th a {
-    color: var(--primary-color);
+    color: var(--accent-color);
     text-decoration: none;
 }
 
@@ -380,14 +443,18 @@ h2 {
 }
 
 .results-table .group-header td {
-    background-color: #f9f9f9;
-    font-weight: 600;
+    background-color: var(--light-gray);
+    font-weight: 700;
     text-align: left;
-    color: #555;
+    color: var(--accent-dark);
 }
 
 .results-table .highlight-row td {
-    background-color: #e8f4fc;
+    background-color: var(--accent-soft);
+}
+
+.results-table .highlight-row td.bold {
+    color: var(--accent-dark);
 }
 
 .bold {
@@ -482,9 +549,11 @@ h2 {
 
 footer {
     text-align: center;
-    padding: 40px 0;
+    padding: 32px 0;
     margin-top: 60px;
-    color: #888;
+    color: #ffffff;
+    background-color: var(--primary-color);
+    border-top: 4px solid var(--accent-color);
     font-size: 0.9rem;
 }
 
