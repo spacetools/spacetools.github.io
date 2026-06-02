@@ -51,6 +51,35 @@ h1 {
     letter-spacing: 0.01em;
 }
 
+.news {
+    display: inline-block;
+    max-width: 800px;
+    margin: 14px auto 0;
+    padding: 10px 16px;
+    font-size: 0.88rem;
+    color: #3a3a3a;
+    line-height: 1.5;
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-left: 3px solid var(--accent-color);
+    border-radius: 4px;
+    text-align: left;
+}
+
+.news p {
+    margin: 0;
+}
+
+.news a {
+    color: var(--accent-dark);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.news a:hover {
+    text-decoration: underline;
+}
+
 h2 {
     font-family: var(--font-heading);
     font-size: 1.8rem;
